@@ -1,0 +1,6 @@
+/kapde/__pycache__
+/kapde/migrations/__pycache__
+/kapde/models/__pycache__
+/kapde/templatetags/__pycache__
+/kapde/views/__pycache__
+/venv

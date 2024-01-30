@@ -1,1 +1,1 @@
-# Dukan
+#Django_E-shop_Project
