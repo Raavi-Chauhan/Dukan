@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Cart
+{% endblock title %}
+
+{% block content %}
+{% load cart %}
+
+{% if request.session.customer %}
+<div class="containrer mt-5">
+   <div class="border border-1 rounded-5 m-4 p-4">
+      <p class="display-4 text-center">Your Orders</p>
+      <hr>
+         <table class="table">
+            <thead>
+               <tr>
+                  <th>Sno.</th>
+                  <th>Image</th>
+                  <th>Product</th>
+                  <th>Date</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th>Status</th>
+
+               </tr>
+            </thead>
+            <tbody>
+               {% for order in orders %}
+               <tr class="w3-animate-zoom">
+                  <td>{{forloop.counter}}</td>
+                  <td><img class="rounded-circle" src="{{order.product.image.url}}" alt="{{order.product.name}}" height="80px"></td>
+                  <td>{{order.product.name}}</td>
+                  <td>{{order.date}}</td>
+                  <td>₹{{order.price}}</td>
+                  <td>{{order.quantity}}</td>
+                  <td>₹{{order.quantity|multiply:order.price}}</td>
+                  {% if order.status %}
+                  <td> <small class="text-success"> <b>Complete</b></small></td>
+                  {% else %}
+                  <td> <small class="text-danger"><b> Pending</b></small></td>
+                  {% endif %}
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+   </div>
+</div>
+
+{% else %}
+<h1 class="text-center mt-5">Firstly <a href="/login">Login</a>/<a href="/signup">Signup</a></h1>
+{% endif %}
+
+
+
+{% endblock content %}

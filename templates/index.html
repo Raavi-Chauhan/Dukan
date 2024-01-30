@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Store
+{% endblock title %}
+
+{% block content %}
+{% load cart %}
+
+    <!-- body -->
+    <div class="container-fluid mt-3">
+        <div class="row">
+          {% comment %} <pre> </pre> {% endcomment %}
+          {% comment %} <div class="col-lg-2 mx-3">
+            <div class="list-group">              
+            </div>
+          </div> {% endcomment %}
+
+          <!-- all products -->
+          {% if request.session.customer %}
+          <h4>Welcome back, {{Name}}! 👋</h4>
+          <!-- <pre> </pre> -->
+          {% endif %}
+
+            <br>
+            <br>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+
+
+          <div id="products" class="col-lg-12">
+            <div class="row mx-auto animate__backInDown">
+              {% for product in products %}
+              <div class="card mx-auto mb-3  w3-animate-zoom" id="{{product.id}}" style="width: 18rem;">
+                  <img src="{{product.image.url}}" id="propho" class="card-img-top" alt="..." height="360px">
+
+                  <div class="card-body">
+                    <h5 class="card-title" style="font-family:'Times New Roman', Times, serif;">{{product.name}}</h5>
+                    <p class="card-text"><b>₹{{product.price}}</b></p>
+                    
+                  </div>
+                  
+                  <div class="card-footer p-0 no-gutters">
+                    {% if product|is_in_cart:request.session.cart %}
+                    <div class="row no-gutters">
+                      
+                      <form action="/#{{product.id}}" class="col-2 " method="post">
+                        {% csrf_token %}
+                        <input type="text" name="product" value="{{product.id}}" hidden>
+                        <input type="text" name="remove" value="True" hidden>
+                        <input type="submit" class="btn btn-block btn-outline-secondary" name="" value="-">
+                      </form>
+
+                      <div class="text-center pt-1 col">{{product|cart_quantity:request.session.cart}} in cart</div>
+                      
+                      <form action="/#{{product.id}}" class="col-2 " method="post">
+                        {% csrf_token %}
+                        <input type="text" name="product" value="{{product.id}}" hidden>
+                        <input type="submit" class="btn btn-block btn-outline-secondary" name="" value="+">
+                      </form>
+                    </div>
+                      
+                    {% else %}
+                    <form action="/#{{product.id}}" method="post" class="btn-block">
+                      {% csrf_token %}
+                      <input type="text" name="product" value="{{product.id}}" hidden>
+                      <input type="submit" class="float-right btn btn-light border mt-2 form-control" value='Add to Cart'>
+                    </form>
+                      {% if request.session.customer %}
+                    <form action='/cart/' method="post">
+                      {% csrf_token %}
+                      <input type="text" name="product" value="{{product.id}}" hidden>
+                      <button type="submit" class="float-right btn btn-outline-dark border mt-2 mb-2 form-control">Buy now</button>
+                    </form>
+                      {% else %}
+                      <div class="mt-1 pt-3 mb-4 pb-3">
+                        <a href="/login" class="btn btn-outline-dark border rounded col-lg-12 float-end">Buy now</a>
+                      </div>
+
+                     {% endif %}
+                      
+                    {% endif %}
+                    
+                  </div>
+
+              </div>            
+              {% endfor %}
+          </div>
+          </div>
+        </div>
+    </div>
+
+    {% endblock content %}

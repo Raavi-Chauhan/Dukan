@@ -1,0 +1,72 @@
+{% extends "vbase.html" %}
+{% block title %}
+Products
+{% endblock title %}
+
+{% block content %}
+{% load cart %}
+{% if error %}
+<div class="alert alert-danger mx-3 my-2" role="alert">
+   {{error}}
+</div> 
+{% endif %}
+<div class="border border-2 rounded-5 m-4 p-4" id="centa">
+  <table class="table">
+    <thead>
+       <tr class="w3-animate-zoom">
+          <th>Sno.</th>
+          <th>Image</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Update Price</th>
+          <th class='text-center'>Update stock</th>
+          <th>Sold</th>
+          <th class='text-center'>Remove</th>
+       </tr>
+    </thead>
+    <tbody>
+       {% for product in products %}
+       <tr class="w3-animate-zoom">
+          <td>{{forloop.counter}}</td>
+          <td><img class="rounded-circle" id="propho" src="{{product.image.url}}" alt="{{product.name}}" height="80px"></td>
+          <td>{{product.name}}</td>
+          <td>₹{{product.price}}</td>
+          <td >{{product.stock}}</td>
+          <td>
+            <div class="card-footer p-0 no-gutters">
+              <form action="/showpro/" method="post">
+                {% csrf_token %}
+                <input class="btn btn-outline-secondary " type="number" name="upprice" placeholder="Change Price">
+                <input type="text" name="prodid" value="{{product.id}}" hidden>
+                <button type="submit" hidden></button>
+            </div>
+          <td>
+            <div class="card-footer p-0 no-gutters">
+                 <input class="btn btn-outline-secondary " type="number" name="upstock" placeholder="Add Stock">
+                 <input type="text" name="prodid2" value="{{product.id}}" hidden>
+                 <button type="submit" hidden></button>
+               </form>
+          </div>
+       </div></td>
+       <td >{{product.sale}}</td>
+       <td>
+          <form action="/showpro/" method="post" class="btn-block">
+          {% csrf_token %}
+          <input type="text" name="rmprod" value="{{product.id}}" hidden>
+          <button type="submit" class="float-right btn btn-light border form-control my-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
+             <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
+           </svg></button>
+        </form>
+       </td>
+    </tr>
+         
+       {% endfor %}
+    
+    </tbody>
+                 
+          {% comment %} <th class="text-center pt-5 w3-animate-zoom" colspan="7"><h1>Empty Cart</h1></th> {% endcomment %}
+
+ </table>
+</div>
+{% endblock content %}
