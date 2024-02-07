@@ -1,1 +1,1 @@
-#Django_E-shop_Project_
+#Django_E-shop_Project_demo
