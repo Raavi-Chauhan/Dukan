@@ -1,0 +1,19 @@
+version: 'latest'
+
+services:
+  db:
+    image: nouchka/sqlite3:latest
+    environment:
+      - SQLITE3_DB=db.sqlite3
+  django:
+     image: django-docker:0.0.1
+     build: .
+     command: python manage.py runserver 0.0.0.0:8000
+     volumes:
+       - .:/code 
+     ports:
+       -  "8000:8000"
+     depends_on:
+       - db
+  
+ 
