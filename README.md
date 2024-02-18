@@ -1,3 +1,3 @@
 #Django_E-shop_Project_de
-commit again 7
+commit again 8
  
