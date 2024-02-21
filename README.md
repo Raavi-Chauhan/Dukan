@@ -1,3 +1,2 @@
 #Django_E-shop_Project_de
-commit 1000000000000
- 
+wednesday 1 
