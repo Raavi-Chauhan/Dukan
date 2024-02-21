@@ -1,3 +1,2 @@
 #Django_E-shop_Project_de
-commit again 10000000
- 
+date 21-02-2024 
