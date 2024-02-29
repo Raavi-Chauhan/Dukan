@@ -7,8 +7,10 @@ services:
       - SQLITE3_DB=db.sqlite3
   django:
      image: django-docker:0.0.1
-     build: .
-     command: python manage.py runserver 0.0.0.0:8000
+     build:
+       context: .
+       dockerfile: Dockerfile       
+     image: raavi13/docker_1:${BUILD_NUMBER} 
      volumes:
        - .:/code 
      ports:
