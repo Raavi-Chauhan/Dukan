@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dukan-deployment
+  labels:
+    app: dukan1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dukan1
+  template:
+    metadata:
+      labels:
+        app: dukan1
+    spec:
+      containers:
+      - name: dukanweb
+        image: raavi13/docker_1:61
+        ports:
+        - containerPort: 8000
