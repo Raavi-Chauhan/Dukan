@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dukan
+  labels:
+    app: dukan1
+spec:
+  containers:
+  - name: dukanweb
+    image: raavi13/docker_1:61
+    ports:
+    - containerPort: 8000
